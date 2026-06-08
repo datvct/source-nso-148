@@ -95,6 +95,15 @@ public final class TaskAuto extends Auto {
          GameScr.addChatPopup("Ho\u00e0n th\u00e0nh!");
          NSOT_MOB var3 = NSOT_MOB.mod_nst;
          NSOT_MOB.d();
+         if (AutoDailyPanel.isAutoDHDOn) {
+            NSOT_MOB.autoDHDState = 3;
+            GameScr.addChatPopup("Ti\u1ebfp t\u1ee5c Auto T\u00e0 Th\u00fa Nh\u00f3m");
+            Class_cl.ac();
+            NSOT_MOB.b = null;
+            NSOT_MOB.ay = new TaskTaThuAuto();
+            NSOT_MOB.ay.g();
+            NSOT_MOB.a((Auto)NSOT_MOB.ay);
+         }
       }
 
    }

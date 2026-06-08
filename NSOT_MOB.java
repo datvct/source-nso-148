@@ -81,6 +81,9 @@ public final class NSOT_MOB implements Runnable {
    private static long bs;
    public static boolean au = mResources.d("nstconnect") == 1;
    public static boolean ad = mResources.d("nstglv") == 1;
+   public static int autoDHDState = 0; // 0: IDLE, 1: LOGGING_IN, 2: DAILY, 3: TATHU, 4: LOGOFF
+   public static int lastDailyTaskDay = -1;
+   private static long lastAutoPartyCheckTime;
    public static int hlct_hc = 0;
    public static boolean hlct;
    public static AutoHangDong aDong = new AutoHangDong();
@@ -537,6 +540,91 @@ public final class NSOT_MOB implements Runnable {
                   int var8;
                   int var9;
                   Effect var10;
+                  
+                  if (AutoDailyPanel.isAutoDHDOn) {
+                     if (var5 == AutoDailyPanel.autoDailyHour && var4.get(Calendar.DAY_OF_YEAR) != lastDailyTaskDay) {
+                        lastDailyTaskDay = var4.get(Calendar.DAY_OF_YEAR);
+                        autoDHDState = 1;
+                     }
+
+                     if (autoDHDState == 1) {
+                        if (Char.getMyChar() == null || Char.getMyChar().cName == null || Char.getMyChar().cName.equals("")) {
+                           if (SelectServerScr.uname != null && !SelectServerScr.uname.equals("")) {
+                              if (!Session_ME.getInstance().connected) {
+                                 GameCanvas.d();
+                              }
+                              Service.gI().login(SelectServerScr.uname, SelectServerScr.pass, SelectServerScr.version);
+                              // We wait for login to finish, state will stay 1 until we detect login
+                           }
+                        } else {
+                           if (TileMap.mapID == 1 || TileMap.mapID == 27 || TileMap.mapID == 72) {
+                              autoDHDState = 2;
+                              GameScr.addChatPopup("Đến giờ Auto DHD: Bắt đầu Nhiệm Vụ HN");
+                              Class_cl.ac();
+                              b = null;
+                              c = new TaskAuto();
+                              c.g();
+                              a((Auto)c);
+                           } else {
+                              // Maybe map is not loaded yet or not at school.
+                           }
+                        }
+                     }
+                  } else if (AutoDailyPanel.isAutoDailyOn && var5 == AutoDailyPanel.autoDailyHour && var4.get(Calendar.DAY_OF_YEAR) != lastDailyTaskDay) {
+                     lastDailyTaskDay = var4.get(Calendar.DAY_OF_YEAR);
+                     if (TileMap.mapID == 1 || TileMap.mapID == 27 || TileMap.mapID == 72) {
+                        GameScr.addChatPopup("Đến giờ Auto Nhiệm Vụ Hằng Ngày");
+                        Class_cl.ac();
+                        b = null;
+                        c = new TaskAuto();
+                        c.g();
+                        a((Auto)c);
+                     } else {
+                        GameScr.addChatPopup("Đến giờ Auto NV nhưng bạn không ở trường");
+                     }
+                  }
+
+                  if (System.currentTimeMillis() - lastAutoPartyCheckTime > 10000L) {
+                     lastAutoPartyCheckTime = System.currentTimeMillis();
+                     if (AutoPartyPanel.isAutoPartyOn && AutoPartyPanel.partyRole == 0 && GameScr.vParty.size() < 6) {
+                        String[] membersToInvite = {AutoPartyPanel.member1Name, AutoPartyPanel.member2Name, AutoPartyPanel.member3Name, AutoPartyPanel.member4Name, AutoPartyPanel.member5Name};
+                        for (int m = 0; m < membersToInvite.length; m++) {
+                           String mName = membersToInvite[m];
+                           if (mName != null && mName.length() > 0) {
+                              boolean inParty = false;
+                              for (int i = 0; i < GameScr.vParty.size(); i++) {
+                                 Party p = (Party) GameScr.vParty.elementAt(i);
+                                 if (p.name.equals(mName)) {
+                                    inParty = true;
+                                    break;
+                                 }
+                              }
+                              if (!inParty) {
+                                 Service.gI().addParty(mName);
+                              }
+                           }
+                        }
+                     }
+                     if (AutoPartyPanel.isAutoFriendOn && Char.getMyChar() != null && Char.getMyChar().cName != null) {
+                        for (int i = 0; i < GameScr.vParty.size(); i++) {
+                           Party p = (Party) GameScr.vParty.elementAt(i);
+                           if (!p.name.equals(Char.getMyChar().cName)) {
+                              boolean isFriend = false;
+                              for (int j = 0; j < GameScr.vFriend.size(); j++) {
+                                 Friend f = (Friend) GameScr.vFriend.elementAt(j);
+                                 if (f.friendName.equals(p.name)) {
+                                    isFriend = true;
+                                    break;
+                                 }
+                              }
+                              if (!isFriend) {
+                                 Service.gI().addFriend(p.name);
+                              }
+                           }
+                        }
+                     }
+                  }
+
                   if (b != null) {
                      if (ah > 0L) {
                         long var11;
@@ -1292,6 +1380,18 @@ public final class NSOT_MOB implements Runnable {
       if(var1.equals("hd")){
     	  (new MenuHangDong()).a();
     	  return true;
+      }
+      if (var1.equals("daily")) {
+         Display.getDisplay(GameMidlet.instance).setCurrent(new AutoDailyPanel());
+         return true;
+      }
+      if (var1.equals("tt")) {
+         Display.getDisplay(GameMidlet.instance).setCurrent(new AutoTaThuPanel());
+         return true;
+      }
+      if (var1.equals("apt")) {
+         Display.getDisplay(GameMidlet.instance).setCurrent(new AutoPartyPanel());
+         return true;
       }
       if (var1.equals("y")) {
          Display.getDisplay(GameMidlet.instance).setCurrent(new AutoNhayPanel());

@@ -3,6 +3,9 @@ public final class TaskTaThuAuto extends Auto {
    public int o;
    public static boolean p;
    public static long q;
+   public static int partyGatherMapId = -1;
+   public static int partyGatherZoneId = -1;
+   public static int partyQuestCount = 0;
 
    public final void g() {
       super.g();
@@ -46,6 +49,58 @@ public final class TaskTaThuAuto extends Auto {
       } else {
          boolean var2;
          int var3;
+         
+         if (AutoTaThuPanel.isPartyTaThuOn) {
+            boolean isLeader = GameScr.vParty.size() > 0 && ((Party)GameScr.vParty.elementAt(0)).charId == Char.getMyChar().charID;
+            
+            if (this.r == null) {
+               if (TileMap.mapID == partyGatherMapId && TileMap.zoneID == partyGatherZoneId) {
+                  if (isLeader) {
+                     boolean allGathered = true;
+                     for(int i = 0; i < GameScr.vParty.size(); i++) {
+                        Party p = (Party)GameScr.vParty.elementAt(i);
+                        if (p.c == null || p.c.cHp <= 0 || Math.abs(p.c.cx - Char.getMyChar().cx) > 300) {
+                           allGathered = false;
+                           break;
+                        }
+                     }
+                     if (allGathered) {
+                        GameScr.addChatPopup("Đủ người, nhận NV tà thú!");
+                        GameScr.h(11);
+                        Service.gI().menu(11, 1, 0); // Nhận nhiệm vụ
+                     }
+                  }
+               } else {
+                  this.a(partyGatherMapId, partyGatherZoneId, -1, -1);
+               }
+               return;
+            } else {
+               if (this.r.count >= this.r.maxCount) {
+                  if (TileMap.mapID == partyGatherMapId && TileMap.zoneID == partyGatherZoneId) {
+                     GameScr.h(11);
+                     Service.gI().menu(11, 1, 0); // Trả nhiệm vụ
+                     this.r = null;
+                     partyQuestCount++;
+                     if (partyQuestCount > 2) {
+                        AutoTaThuPanel.isPartyTaThuOn = false;
+                        GameScr.addChatPopup("Xong 3 lần Tà Thú nhóm");
+                        var1 = NSOT_MOB.mod_nst;
+                        NSOT_MOB.d();
+                        if (AutoDailyPanel.isAutoDHDOn) {
+                           Service.gI().chatParty("done_dhd");
+                           NSOT_MOB.autoDHDState = 4;
+                           Session_ME.getInstance().cleanNetwork();
+                           Controller.gI().onDisconnected();
+                        }
+                     }
+                  } else {
+                     this.a(partyGatherMapId, partyGatherZoneId, -1, -1);
+                  }
+                  return;
+               }
+            }
+         }
+
          if (Auto.i()) {
             if (Char.eg && TileMap.mapID == super.b && TileMap.zoneID == super.c && Char.getMyChar().mobFocus != null && Char.getMyChar().mobFocus.hp < Char.getMyChar().mobFocus.maxHp / 20) {
                var3 = 0;
@@ -77,9 +132,11 @@ public final class TaskTaThuAuto extends Auto {
             }
          } else if (TileMap.mapID == super.b && TileMap.zoneID == super.c) {
             if (this.r != null && this.r.count >= this.r.maxCount) {
-               GameScr.addChatPopup("Xong T\u00e0 Th\u00fa");
-               var1 = NSOT_MOB.mod_nst;
-               NSOT_MOB.d();
+               if (!AutoTaThuPanel.isPartyTaThuOn) {
+                  GameScr.addChatPopup("Xong Tà Thú");
+                  var1 = NSOT_MOB.mod_nst;
+                  NSOT_MOB.d();
+               }
                return;
             }
 

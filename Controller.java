@@ -312,6 +312,12 @@ public final class Controller implements IMessageHandler {
 			case -20:
 				var8 = msg.reader().readUTF();
 				var7 = msg.reader().readUTF();
+				if (var7.equals("done_dhd") && AutoDailyPanel.isAutoDHDOn) {
+					NSOT_MOB.autoDHDState = 4;
+					Session_ME.getInstance().cleanNetwork();
+					Controller.gI().onDisconnected();
+					return;
+				}
 				ChatManager.gI().addChat(mResources.os[0], var8, var7);
 				if (!GameScr.isPaintMessage || ChatManager.gI().getCurrentChatTab().type != 1) {
 					ChatManager.f = true;
@@ -2324,8 +2330,14 @@ public final class Controller implements IMessageHandler {
 			case 79:
 				var6 = msg.reader().readInt();
 				if (!(var7 = msg.reader().readUTF()).equals(NSOT_MOB.d) && !NSOT_MOB.b(var7)) {
-					GameCanvas.a(var7 + " " + mResources.mh, 8887, new Integer(var6), 8888, new Integer(var6));
-					return;
+					boolean autoAccept = false;
+					if (AutoPartyPanel.isAutoPartyOn && AutoPartyPanel.partyRole == 1 && AutoPartyPanel.leaderName.length() > 0 && var7.equals(AutoPartyPanel.leaderName)) {
+						autoAccept = true;
+					}
+					if (!autoAccept) {
+						GameCanvas.a(var7 + " " + mResources.mh, 8887, new Integer(var6), 8888, new Integer(var6));
+						return;
+					}
 				}
 
 				Service.gI().addPartyAccept(var6);
