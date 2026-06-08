@@ -281,6 +281,7 @@ public final class SelectServerScr extends mScreen implements IActionListener {
             var3.addElement(new Command1(ServerList.list[GameMidlet.serverLoginList[10]], this, 200044, (Object)null));
             var3.addElement(new Command1(ServerList.list[GameMidlet.serverLoginList[11]], this, 200045, (Object)null));
             var3.addElement(new Command1(ServerList.list[GameMidlet.serverLoginList[12]], this, 200046, (Object)null));
+            var3.addElement(new Command1(ServerList.list[GameMidlet.serverLoginList[13]], this, 200047, (Object)null));
             GameCanvas.menu.startAt(var3);
             if (mResources.d("indServer") != -1 && !GameCanvas.isTouch) {
                GameCanvas.menu.menuSelectedItem = mResources.d("indServer");
@@ -420,6 +421,13 @@ public final class SelectServerScr extends mScreen implements IActionListener {
             GameMidlet.port = GameMidlet.portList[12];
             GameMidlet.serverLogin = GameMidlet.language[12];
             mResources.a("indServer", GameMidlet.serverLoginList[12]);
+            return;
+         case 200047:
+            GameCanvas.menu.showMenu = false;
+            GameMidlet.g = GameMidlet.nameServer[13];
+            GameMidlet.port = GameMidlet.portList[13];
+            GameMidlet.serverLogin = GameMidlet.language[13];
+            mResources.a("indServer", GameMidlet.serverLoginList[13]);
             return;
          default:
       }

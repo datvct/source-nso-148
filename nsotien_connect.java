@@ -12,6 +12,7 @@ public class nsotien_connect {
    public static String ip_sv11 = new String(new char[]{'2','7','.','0','.','1','2','.','8'});
    public static String ip_sv01 = new String(new char[]{'n','j','6','.','t','e','a','m','o','b','i','.','c','o','m'});
    public static String ip_sv02 = new String(new char[]{'n','j','8','.','t','e','a','m','o','b','i','.','c','o','m'});
+   public static String ip_sv12 = new String(new char[]{'2','7','.','0','.','1','2','.','1','1'});
    public static String name_sv1 = new String(new char[]{'B', 'o', 'k', 'k', 'e', 'n'});
    public static String name_sv2 = new String(new char[]{'S', 'h', 'u', 'r', 'i', 'k', 'e', 'n'});
    public static String name_sv3 = new String(new char[]{'T', 'e', 's', 's', 'e', 'n'});
@@ -25,4 +26,5 @@ public class nsotien_connect {
    public static String name_sv11 = new String(new char[]{'D', 'a', 'i', 's', 'h', 'o'});
    public static String name_sv01 = new String(new char[]{'H', 'i', 'r', 'o', 's', 'a', 'k', 'i'});
    public static String name_sv02 = new String(new char[]{'H', 'a', 'r', 'u', 'n', 'a'});
+   public static String name_sv12 = new String(new char[]{'B', 'i', 's', 'e', 'n', 't', 'o'});
 }

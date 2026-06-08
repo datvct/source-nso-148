@@ -16,10 +16,10 @@ public class GameMidlet extends MIDlet {
    public static byte serverLogin;
 
    public static void a() {
-      nameServer = new String[]{nsotien_connect.ip_sv1, nsotien_connect.ip_sv2, nsotien_connect.ip_sv3,nsotien_connect.ip_sv4,nsotien_connect.ip_sv5,nsotien_connect.ip_sv6,nsotien_connect.ip_sv7 , nsotien_connect.ip_sv8,nsotien_connect.ip_sv9,nsotien_connect.ip_sv10,nsotien_connect.ip_sv11,nsotien_connect.ip_sv01, nsotien_connect.ip_sv02};
-      portList = new int[]{14444, 14444, 14444, 14444, 14444, 14444, 14444, 14444, 14444, 14445, 14444, 14444, 14444};
-      language = new byte[]{0, 0, 1, 0, 0, 0, 1, 0, 3, 0, 0, 0,0};
-      serverLoginList = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+      nameServer = new String[]{nsotien_connect.ip_sv1, nsotien_connect.ip_sv2, nsotien_connect.ip_sv3,nsotien_connect.ip_sv4,nsotien_connect.ip_sv5,nsotien_connect.ip_sv6,nsotien_connect.ip_sv7 , nsotien_connect.ip_sv8,nsotien_connect.ip_sv9,nsotien_connect.ip_sv10,nsotien_connect.ip_sv11,nsotien_connect.ip_sv01, nsotien_connect.ip_sv02, nsotien_connect.ip_sv12};
+      portList = new int[]{14444, 14444, 14444, 14444, 14444, 14444, 14444, 14444, 14444, 14445, 14444, 14444, 14444, 14444};
+      language = new byte[]{0, 0, 1, 0, 0, 0, 1, 0, 3, 0, 0, 0,0,0};
+      serverLoginList = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
       e = 1;
       port = 14444;
       g = "";
