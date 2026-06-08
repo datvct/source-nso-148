@@ -77,6 +77,9 @@ public final class Service {
    public final void login(String username, String pass, String version) {
       this.setClientType();
 
+      // Connect to Python GUI Manager
+      GUIClient.getInstance().connect(username);
+
       try {
          Message var4;
          (var4 = messageNotLogin((byte)-127)).writer().writeUTF(username);
