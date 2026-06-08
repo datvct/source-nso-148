@@ -8,10 +8,11 @@ public class GUIClient implements Runnable {
     private SocketConnection sc;
     private InputStream is;
     private OutputStream os;
-    private boolean isRunning;
-    private String username;
     private Thread thread;
-    private long lastHeartbeat;
+    private String username;
+    private boolean isRunning = false;
+    private boolean hasSentInitialStatus = false;
+    private long lastHeartbeat = 0;
 
     public static GUIClient getInstance() {
         if (instance == null) {
@@ -54,22 +55,44 @@ public class GUIClient implements Runnable {
             // Send login packet
             send("{\"type\":\"login\",\"username\":\"" + username + "\"}");
 
+            hasSentInitialStatus = false;
             lastHeartbeat = System.currentTimeMillis();
             StringBuffer buffer = new StringBuffer();
 
             while (isRunning) {
-                // Check heartbeat
-                if (System.currentTimeMillis() - lastHeartbeat > 20000) {
+                // Check if we need to send the initial status immediately after Char is loaded
+                if (Char.getMyChar() != null && !hasSentInitialStatus) {
+                    hasSentInitialStatus = true;
+                    lastHeartbeat = 0; // force heartbeat
+                }
+                
+                // Check heartbeat (now every 5 seconds)
+                if (System.currentTimeMillis() - lastHeartbeat > 5000) {
                     send("{\"type\":\"heartbeat\",\"username\":\"" + username + "\"}");
                     
                     // Also send status update
                     String cName = "";
                     int level = 1;
+                    int diemHoatDong = 0;
+                    String autoStatus = "ONLINE";
                     if (Char.getMyChar() != null) {
                         cName = Char.getMyChar().cName;
                         level = Char.getMyChar().clevel;
+                        diemHoatDong = Char.getMyChar().pointUydanh;
+                        
+                        if (NSOT_MOB.b != null) {
+                            if (NSOT_MOB.b instanceof TaskAuto) {
+                                autoStatus = "AUTO NV";
+                            } else if (NSOT_MOB.b instanceof TaskTaThuAuto) {
+                                autoStatus = "AUTO TT";
+                            } else if (NSOT_MOB.b instanceof AutoTanSat) {
+                                autoStatus = "AUTO TÀN SÁT";
+                            } else {
+                                autoStatus = "AUTO";
+                            }
+                        }
                     }
-                    send("{\"type\":\"status_update\",\"username\":\"" + username + "\",\"characterName\":\"" + cName + "\",\"level\":" + level + ",\"mapId\":" + TileMap.mapID + "}");
+                    send("{\"type\":\"status_update\",\"username\":\"" + username + "\",\"server\":\"" + GameMidlet.g + "\",\"characterName\":\"" + cName + "\",\"level\":" + level + ",\"mapId\":" + TileMap.mapID + ",\"pointUydanh\":" + diemHoatDong + ",\"status\":\"" + autoStatus + "\"}");
                     lastHeartbeat = System.currentTimeMillis();
                 }
 
@@ -125,8 +148,10 @@ public class GUIClient implements Runnable {
             if (cmd.equals("setup_daily")) {
                 AutoDailyPanel.isAutoDailyOn = SimpleJSON.getBoolean(msg, "enabled");
                 AutoDailyPanel.autoDailyHour = SimpleJSON.getInt(msg, "startTime");
+                AutoDailyPanel.autoDailyMinute = SimpleJSON.getInt(msg, "startMinute");
                 mResources.a("auto_daily_on", AutoDailyPanel.isAutoDailyOn ? 1 : -1);
                 mResources.a("auto_daily_time", String.valueOf(AutoDailyPanel.autoDailyHour));
+                mResources.a("auto_daily_minute", String.valueOf(AutoDailyPanel.autoDailyMinute));
                 GameCanvas.a("Auto NV: " + (AutoDailyPanel.isAutoDailyOn ? "Bật" : "Tắt"));
             } 
             else if (cmd.equals("setup_party")) {

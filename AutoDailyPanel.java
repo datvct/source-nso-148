@@ -17,6 +17,7 @@ public final class AutoDailyPanel extends Form implements CommandListener {
    public static boolean isAutoDailyOn = mResources.d("auto_daily_on") == 1;
    public static boolean isAutoDHDOn = mResources.d("auto_dhd_on") == 1;
    public static int autoDailyHour = mResources.d("auto_daily_time");
+   public static int autoDailyMinute = mResources.d("auto_daily_minute");
 
    public AutoDailyPanel() {
       super("Cài đặt hẹn giờ nhiệm vụ hằng ngày");

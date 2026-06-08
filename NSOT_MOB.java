@@ -542,7 +542,7 @@ public final class NSOT_MOB implements Runnable {
                   Effect var10;
                   
                   if (AutoDailyPanel.isAutoDHDOn) {
-                     if (var5 == AutoDailyPanel.autoDailyHour && var4.get(Calendar.DAY_OF_YEAR) != lastDailyTaskDay) {
+                     if (var5 == AutoDailyPanel.autoDailyHour && var6 >= AutoDailyPanel.autoDailyMinute && var4.get(Calendar.DAY_OF_YEAR) != lastDailyTaskDay) {
                         lastDailyTaskDay = var4.get(Calendar.DAY_OF_YEAR);
                         autoDHDState = 1;
                      }
@@ -570,7 +570,7 @@ public final class NSOT_MOB implements Runnable {
                            }
                         }
                      }
-                  } else if (AutoDailyPanel.isAutoDailyOn && var5 == AutoDailyPanel.autoDailyHour && var4.get(Calendar.DAY_OF_YEAR) != lastDailyTaskDay) {
+                  } else if (AutoDailyPanel.isAutoDailyOn && var5 == AutoDailyPanel.autoDailyHour && var6 >= AutoDailyPanel.autoDailyMinute && var4.get(Calendar.DAY_OF_YEAR) != lastDailyTaskDay) {
                      lastDailyTaskDay = var4.get(Calendar.DAY_OF_YEAR);
                      if (TileMap.mapID == 1 || TileMap.mapID == 27 || TileMap.mapID == 72) {
                         GameScr.addChatPopup("Đến giờ Auto Nhiệm Vụ Hằng Ngày");
