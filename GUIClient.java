@@ -62,8 +62,10 @@ public class GUIClient implements Runnable {
             while (isRunning) {
                 // Check if we need to send the initial status immediately after Char is loaded
                 if (Char.getMyChar() != null && !hasSentInitialStatus) {
-                    hasSentInitialStatus = true;
-                    lastHeartbeat = 0; // force heartbeat
+                    if (Char.getMyChar().cName != null && !Char.getMyChar().cName.equals("")) {
+                        hasSentInitialStatus = true;
+                        lastHeartbeat = 0; // force heartbeat
+                    }
                 }
                 
                 // Check heartbeat (now every 5 seconds)
@@ -75,24 +77,31 @@ public class GUIClient implements Runnable {
                     int level = 1;
                     int diemHoatDong = 0;
                     String autoStatus = "ONLINE";
-                    if (Char.getMyChar() != null) {
-                        cName = Char.getMyChar().cName;
-                        level = Char.getMyChar().clevel;
-                        diemHoatDong = Char.getMyChar().pointUydanh;
-                        
-                        if (NSOT_MOB.b != null) {
-                            if (NSOT_MOB.b instanceof TaskAuto) {
-                                autoStatus = "AUTO NV";
-                            } else if (NSOT_MOB.b instanceof TaskTaThuAuto) {
-                                autoStatus = "AUTO TT";
-                            } else if (NSOT_MOB.b instanceof AutoTanSat) {
-                                autoStatus = "AUTO TÀN SÁT";
-                            } else {
-                                autoStatus = "AUTO";
+                    try {
+                        if (Char.getMyChar() != null) {
+                            cName = Char.getMyChar().cName;
+                            if (cName == null) cName = "";
+                            level = Char.getMyChar().clevel;
+                            diemHoatDong = Char.getMyChar().pointUydanh;
+                            
+                            if (NSOT_MOB.b != null) {
+                                if (NSOT_MOB.b instanceof TaskAuto) {
+                                    autoStatus = "AUTO NV";
+                                } else if (NSOT_MOB.b instanceof TaskTaThuAuto) {
+                                    autoStatus = "AUTO TT";
+                                } else if (NSOT_MOB.b instanceof AutoTanSat) {
+                                    autoStatus = "AUTO TÀN SÁT";
+                                } else {
+                                    autoStatus = "AUTO";
+                                }
                             }
                         }
+                        String serverName = GameMidlet.g;
+                        if (serverName == null) serverName = "";
+                        send("{\"type\":\"status_update\",\"username\":\"" + username + "\",\"server\":\"" + serverName + "\",\"characterName\":\"" + cName + "\",\"level\":" + level + ",\"mapId\":" + TileMap.mapID + ",\"pointUydanh\":" + diemHoatDong + ",\"status\":\"" + autoStatus + "\"}");
+                    } catch (Exception ex) {
+                        // Ignore
                     }
-                    send("{\"type\":\"status_update\",\"username\":\"" + username + "\",\"server\":\"" + GameMidlet.g + "\",\"characterName\":\"" + cName + "\",\"level\":" + level + ",\"mapId\":" + TileMap.mapID + ",\"pointUydanh\":" + diemHoatDong + ",\"status\":\"" + autoStatus + "\"}");
                     lastHeartbeat = System.currentTimeMillis();
                 }
 
