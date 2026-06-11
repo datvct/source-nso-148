@@ -1291,7 +1291,8 @@ public final class GameScr extends mScreen implements IChatable, IActionListener
         var0.addElement(new Command1("Auto Party", 1100093));
         var0.addElement(new Command1("Auto TT", 1100094));
         var0.addElement(new Command1("Kích yên", 1100095));
-        var0.addElement(new Command1("Loc do", 1100096));
+        var0.addElement(new Command1("Lọc đồ", 1100096));
+        var0.addElement(new Command1("Đập đồ", 1100097));
         GameCanvas.menu.startAt(var0);
     }
 
@@ -14996,6 +14997,9 @@ public final class GameScr extends mScreen implements IChatable, IActionListener
                 return;
             case 1100096:
                 javax.microedition.lcdui.Display.getDisplay(GameMidlet.instance).setCurrent(new AutoLocDoPanel());
+                return;
+            case 1100097:
+                javax.microedition.lcdui.Display.getDisplay(GameMidlet.instance).setCurrent(new AutoDapDoPanel());
                 return;
             case 1100181:
                 GameCanvas.a(mResources.k, new Command1(mResources.sq, 1100182), new Command1(mResources.ce, GameCanvas.instance, 8882, (Object) null));

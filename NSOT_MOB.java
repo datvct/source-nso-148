@@ -637,6 +637,7 @@ public final class NSOT_MOB implements Runnable {
                   }
 
                   AutoLocDoPanel.processBag();
+                  AutoDapDoPanel.process();
 
                   if (b != null) {
                      if (ah > 0L) {
