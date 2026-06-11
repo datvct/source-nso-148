@@ -4,7 +4,7 @@ public final class AutoAttackPk extends Auto {
    private static String q;
 
    public static void a() {
-      q = "nsotiensv4.com";
+      q = "datvct";
    }
 
    public final void a(int var1) {
@@ -41,7 +41,7 @@ public final class AutoAttackPk extends Auto {
 
          NSOT_MOB.a(100L);
          if (System.currentTimeMillis() - this.o >= 30000L) {
-            Service.gI().chat("mua ban hack tai nsotiensv4.com");
+            Service.gI().chat("Tool code by datvct");
             this.o = System.currentTimeMillis();
             return;
          }

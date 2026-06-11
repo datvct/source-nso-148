@@ -26,7 +26,7 @@ public final class PK_AM_PANEL extends Form implements CommandListener {
    private ChoiceGroup n;
    public static boolean isShow = mResources.d("isShow") == 1; // on /off hien thong tin
    public PK_AM_PANEL() {
-      super("Cài PK Âm NsoTien");
+      super("Cài PK Âm datvct");
       this.append(this.l = new ChoiceGroup("Bật pk âm", 1, new String[]{"Bật", "Tắt"}, (Image[])null));
       this.append(this.m = new ChoiceGroup("Giữ kết nối", 1, new String[]{"Bật", "Tắt"}, (Image[])null));
       this.append(this.n = new ChoiceGroup("Hiện thông tin up", 1, new String[]{"Bật", "Tắt"}, (Image[])null));

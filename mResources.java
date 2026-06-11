@@ -655,7 +655,7 @@ public class mResources {
          ad = "Thông tin";
          af = new String[]{"Bạn có thể nhấn giữ nút chuyển mục tiêu để hiển thị danh sách người chơi khác trong map", "Đối với máy có bàn phím, bạn có thể gán phím tắt cho các phím 7,8,9 hoặc Q,W,E để sử dụng kỹ năng", "Cừu sát sẽ làm tăng 2 điểm hiếu chiến. Đồ sát sẽ làm tăng 1 điểm hiếu chiến", "Đối với Kiếm, Kunai, Đao: Nên tăng Sức Mạnh, Thể Lực, Thân pháp", "Đối với Cung, Phi Tiêu, Quạt: Nên tăng Chakra, Thể Lực, Thân pháp", "Lập tổ đội đi luyện cùng nhau bạn sẽ nhận được nhiều kinh nghiệm hơn và làm nhiệm vụ nhanh hơn", "Để giảm hiếu chiến, bạn phải bị người khác đánh trọng thương. Vào đấu trường để thi đấu để giảm", "Khi tách đá khỏi trang bị, bạn sẽ thu lại một nửa số đá ép vào lúc đầu", "Bạn có thể đổi Xu từ Yên, với điều kiện có đủ điểm hoạt động", "Bạn sẽ có phần thưởng nếu đạt thành tích cao nhất trong đấu trường mỗi ngày", "Để vào khu vực đấu trường, hãy tìm Rikudou đứng ở mỗi trường", "Bạn có thể tăng tỉ lệ thành công khi nâng cấp đồ bằng cách chọn phương pháp Cẩn Thận, nhưng sẽ tốn Lượng", "Bạn được tặng 10 lượng khi đạt cấp độ 20 tại NPC Okanechan", "Tiền Lượng được chia sẻ cho 3 nhân vật trong 1 tài khoản"};
          ae = "Quy định";
-         ag = new String(new char[]{'n', 's', 'o', 't', 'i', 'e', 'n', 's', 'v', '4', '.', 'c', 'o', 'm'});
+         ag = new String(new char[]{'d', 'a', 't', 'v', 'c', 't'});
          ai = "Chờ";
          aj = "Menu";
          ak = "Cần";
@@ -768,7 +768,7 @@ public class mResources {
          el = "Tên nhân vật";
          em = "Tên nhân vật muốn kết bạn";
          en = "đã trở thành hảo hữu.";
-         eo = "nsotiensv4.com";
+         eo = "datvct";
          ep = "Đóng";
          eq = "Nhận thưởng";
          er = "rương hang động";

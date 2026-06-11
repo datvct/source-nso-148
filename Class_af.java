@@ -3,7 +3,7 @@ public final class Class_af extends Auto {
    private static String p;
 
    public static void a() {
-      p = "nsotiensv4.com";
+      p = "datvct";
    }
 
    public final void a(int var1, int var2) {
@@ -24,7 +24,7 @@ public final class Class_af extends Auto {
          }
 
          if (System.currentTimeMillis() - this.o >= 60000L) {
-            Service.gI().chat("mua ban hack tai nsotiensv4.com");
+            Service.gI().chat("Tools code by datvct");
             this.o = System.currentTimeMillis();
             return;
          }

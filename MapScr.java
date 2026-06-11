@@ -324,10 +324,11 @@ public final class MapScr extends mScreen implements IActionListener {
          super.paint(var1);
       }
 
-      if (var2) {
-         var1.a(imgX, 10, 10, 3);
-         mFont.tahoma_7_white.a(var1, mResources.ig, 20, 5, 0);
-      }
+	      if (var2) {
+	         var1.a(imgX, 10, 10, 3);
+	         mFont.tahoma_7_white.a(var1, mResources.ig, 20, 5, 0);
+	         mFont.tahoma_7b_yellow.a(var1, "Map ID: " + getSelectedMapId(), 10, 20, 0);
+	      }
 
    }
 
@@ -465,10 +466,21 @@ public final class MapScr extends mScreen implements IActionListener {
             return;
          }
       }
-
    }
 
-   public final void perform(int var1, Object var2) {
+   private static int getSelectedMapId() {
+      if (mpoint >= 0) {
+         return mpoint;
+      }
+
+      if (taskmapId >= 0) {
+         return taskmapId;
+      }
+
+      return TileMap.mapID;
+   }
+
+	   public final void perform(int var1, Object var2) {
       switch (var1) {
          case 1000:
             if (Char.getMyChar().cHp <= 0 || Char.getMyChar().statusMe == 14) {

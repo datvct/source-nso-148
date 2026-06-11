@@ -17,7 +17,7 @@ public final class AutoLoginPanel extends Form implements CommandListener {
    private ChoiceGroup g;
 
    public AutoLoginPanel() {
-      super("nsotiensv4.com");
+      super("datvct");
       this.append(this.g = new ChoiceGroup("Bật ON/OFF ?", 1, new String[]{"Bật", "Tắt"}, (Image[])null));
       this.append(this.c = new TextField("Giờ Thoát Ra", "2", 3, 2));
       this.append(this.d = new TextField("Phút Thoát Ra", "55", 3, 2));

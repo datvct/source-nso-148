@@ -927,6 +927,9 @@ public final class TileMap {
             if (GameCanvas.isTouch) {
                 var0.a(GameScr.dq, s - 1, t, 0);
             }
+            mFont.tahoma_7b_yellow.a(var0, "Map: " + mapID, s + 2, t + 2, 0);
+            mFont.tahoma_7b_yellow.a(var0, "Khu: " + zoneID, s + 2, t + 13, 0);
+            mFont.tahoma_7b_yellow.a(var0, "XY:" + Char.getMyChar().cx + "-" + Char.getMyChar().cy, s + 2, t + 24, 0);
         }
 
     }

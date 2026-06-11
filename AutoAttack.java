@@ -2,7 +2,7 @@ public final class AutoAttack extends Auto {
    private static String o;
 
    public static void a() {
-      o = "nsotiensv4.com";
+      o = "datvct";
    }
 
    public final void g() {

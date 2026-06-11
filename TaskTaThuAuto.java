@@ -3,8 +3,8 @@ public final class TaskTaThuAuto extends Auto {
    public int o;
    public static boolean p;
    public static long q;
-   public static int partyGatherMapId = -1;
-   public static int partyGatherZoneId = -1;
+   public static int partyGatherMapId = getInt("auto_party_tathu_map", -1);
+   public static int partyGatherZoneId = getInt("auto_party_tathu_zone", -1);
    public static int partyQuestCount = 0;
 
    public final void g() {
@@ -59,6 +59,10 @@ public final class TaskTaThuAuto extends Auto {
                      boolean allGathered = true;
                      for(int i = 0; i < GameScr.vParty.size(); i++) {
                         Party p = (Party)GameScr.vParty.elementAt(i);
+                        if (p.charId == Char.getMyChar().charID) {
+                           continue;
+                        }
+
                         if (p.c == null || p.c.cHp <= 0 || Math.abs(p.c.cx - Char.getMyChar().cx) > 300) {
                            allGathered = false;
                            break;
@@ -81,16 +85,16 @@ public final class TaskTaThuAuto extends Auto {
                      Service.gI().menu(11, 1, 0); // Trả nhiệm vụ
                      this.r = null;
                      partyQuestCount++;
-                     if (partyQuestCount > 2) {
-                        AutoTaThuPanel.isPartyTaThuOn = false;
-                        GameScr.addChatPopup("Xong 3 lần Tà Thú nhóm");
-                        var1 = NSOT_MOB.mod_nst;
-                        NSOT_MOB.d();
-                        if (AutoDailyPanel.isAutoDHDOn) {
+                     if (partyQuestCount >= 2) {
+                        GameScr.addChatPopup("Xong 2 lần Tà Thú nhóm");
+                        if (AutoDailyPanel.isAutoDHDOn && NSOT_MOB.autoDHDState == 3) {
                            Service.gI().chatParty("done_dhd");
                            NSOT_MOB.autoDHDState = 4;
                            Session_ME.getInstance().cleanNetwork();
                            Controller.gI().onDisconnected();
+                        } else {
+                           var1 = NSOT_MOB.mod_nst;
+                           NSOT_MOB.d();
                         }
                      }
                   } else {
@@ -198,6 +202,19 @@ public final class TaskTaThuAuto extends Auto {
    public static void c() {
       p = false;
       q = 0L;
+   }
+
+   private static int getInt(String var0, int var1) {
+      String var2 = mResources.c(var0);
+      if (var2 == null) {
+         return var1;
+      }
+
+      try {
+         return Integer.parseInt(var2.trim());
+      } catch (Exception var4) {
+         return var1;
+      }
    }
 
    static {

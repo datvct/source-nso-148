@@ -64,34 +64,37 @@ public final class Npc extends Char {
             return;
          }
 
-         if (this.template != null) {
-            if (this.template.npcTemplateId == 13) {
-               if (Char.getMyChar().npcFocus != null && Char.getMyChar().npcFocus.equals(this)) {
-                  SmallImage.drawSmallImageNew(var1, 988, super.cx, super.cy - super.ch - 1, 0, 33);
-               }
+	            if (this.template != null) {
+	            if (this.template.npcTemplateId == 13) {
+	               if (Char.getMyChar().npcFocus != null && Char.getMyChar().npcFocus.equals(this)) {
+	                  SmallImage.drawSmallImageNew(var1, 988, super.cx, super.cy - super.ch - 1, 0, 33);
+	               }
 
-               SmallImage.drawSmallImageNew(var1, 1060, super.cx, super.cy, 0, 33);
-               mFont.tahoma_7_white.a(var1, String.valueOf(TileMap.zoneID), super.cx, super.cy - 10 - 2 - mFont.tahoma_7.d(), 2);
-               return;
-            }
+	               SmallImage.drawSmallImageNew(var1, 1060, super.cx, super.cy, 0, 33);
+	               this.paintNpcId(var1, super.cy - 10 - 2 - (mFont.tahoma_7.d() << 1));
+	               mFont.tahoma_7_white.a(var1, String.valueOf(TileMap.zoneID), super.cx, super.cy - 10 - 2 - mFont.tahoma_7.d(), 2);
+	               return;
+	            }
 
             if (this.template.npcTemplateId == 31) {
                if (Char.getMyChar().npcFocus != null && Char.getMyChar().npcFocus.equals(this)) {
                   SmallImage.drawSmallImageNew(var1, 988, super.cx, super.cy - super.ch - 1, 0, 33);
                }
 
-               SmallImage.drawSmallImageNew(var1, 1291, super.cx, super.cy, 0, 33);
-               return;
-            }
+	               SmallImage.drawSmallImageNew(var1, 1291, super.cx, super.cy, 0, 33);
+	               this.paintNpcId(var1, super.cy - super.ch - 3 - mFont.tahoma_7.d());
+	               return;
+	            }
 
             if (this.template.npcTemplateId == 27) {
                if (Char.getMyChar().npcFocus != null && Char.getMyChar().npcFocus.equals(this)) {
                   SmallImage.drawSmallImageNew(var1, 988, super.cx, super.cy - super.ch - 1, 0, 33);
                }
 
-               SmallImage.drawSmallImageNew(var1, 1224, super.cx, super.cy, 0, 33);
-               return;
-            }
+	               SmallImage.drawSmallImageNew(var1, 1224, super.cx, super.cy, 0, 33);
+	               this.paintNpcId(var1, super.cy - super.ch - 3 - mFont.tahoma_7.d());
+	               return;
+	            }
 
             Part var2 = GameScr.parts[this.template.headId];
             Part var3 = GameScr.parts[this.template.legId];
@@ -116,17 +119,23 @@ public final class Npc extends Char {
                }
             }
 
-            if (Char.getMyChar().npcFocus != null && Char.getMyChar().npcFocus.equals(this)) {
-               mFont.tahoma_7_yellow.a(var1, this.template.name, super.cx, super.cy - super.ch - mFont.tahoma_7.d() - 7, 2, mFont.tahoma_7_grey);
-               SmallImage.drawSmallImageNew(var1, 988, super.cx, super.cy - super.ch - 2, 0, 33);
-               return;
-            }
+	            if (Char.getMyChar().npcFocus != null && Char.getMyChar().npcFocus.equals(this)) {
+	               this.paintNpcId(var1, super.cy - super.ch - (mFont.tahoma_7.d() << 1) - 9);
+	               mFont.tahoma_7_yellow.a(var1, this.template.name, super.cx, super.cy - super.ch - mFont.tahoma_7.d() - 7, 2, mFont.tahoma_7_grey);
+	               SmallImage.drawSmallImageNew(var1, 988, super.cx, super.cy - super.ch - 2, 0, 33);
+	               return;
+	            }
 
-            mFont.tahoma_7_yellow.a(var1, this.template.name, super.cx, super.cy - super.ch - 3 - mFont.tahoma_7.d(), 2, mFont.tahoma_7_grey);
-         }
-      }
+	            this.paintNpcId(var1, super.cy - super.ch - 3 - (mFont.tahoma_7.d() << 1));
+	            mFont.tahoma_7_yellow.a(var1, this.template.name, super.cx, super.cy - super.ch - 3 - mFont.tahoma_7.d(), 2, mFont.tahoma_7_grey);
+	         }
+	      }
 
-   }
+	   }
+
+	   private void paintNpcId(mGraphics var1, int var2) {
+	      mFont.tahoma_7b_yellow.a(var1, "ID: " + this.template.npcTemplateId, super.cx, var2, 2, mFont.tahoma_7_grey);
+	   }
 
    public static void aj() {
    }

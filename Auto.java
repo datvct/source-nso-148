@@ -227,12 +227,12 @@ public abstract class Auto {
 				return;
 			}
 			Npc var1 = GameScr.i(13);
-			if (var1 != null && var1.statusMe != 15) {
-				if ((kdl == -1) && (Math.abs(var1.cx - Char.getMyChar().cx) > 22 || Math.abs(var1.cy - Char.getMyChar().cy) > 22)) {
-					Char.b(var1.cx, var1.cy);
-					a(100L);
-				}
-			} else {
+				if (var1 != null && var1.statusMe != 15) {
+					if ((kdl == -1) && (Math.abs(var1.cx - Char.getMyChar().cx) > 22 || Math.abs(var1.cy - Char.getMyChar().cy) > 22)) {
+						Char.b(var1.cx, var1.cy);
+						a(100L);
+					}
+				} else {
 				if (TileMap.mapID != 99 && TileMap.mapID != 103 && TileMap.mapID != 134 && TileMap.mapID != 135 && TileMap.mapID != 136
 						&& TileMap.mapID != 137) {
 					return;
@@ -265,11 +265,11 @@ public abstract class Auto {
 			} else {
 				delay = 10000L;
 			}
-			if (System.currentTimeMillis() - timeChangeZone1 <= delay) {
-				this.c = TileMap.zoneID;
-				a(100L);
-				return;
-			}
+				if (System.currentTimeMillis() - timeChangeZone1 <= delay) {
+					this.c = TileMap.zoneID;
+					a(100L);
+					return;
+				}
 			GameScr var2 = GameScr.gI();
 			Npc var3 = GameScr.i(13);
 			if (var3 != null && var3.statusMe != 15) {
@@ -411,13 +411,14 @@ public abstract class Auto {
 
 	private static void d(Mob var0) {
 		MyVector var1 = new MyVector();
-		if (var0 != null && Char.c(var0.xFirst, var0.yFirst)) {
+			if (var0 != null && AutoKichYenPanel.canAttack(var0) && Char.c(var0.xFirst, var0.yFirst)) {
 			Char.getMyChar().mobFocus = var0;
 			var1.addElement(Char.getMyChar().mobFocus);
 			Skill var2 = Char.getMyChar().myskill;
-			if (System.currentTimeMillis() - var2.lastTimeUseThisSkill >= (long) var2.coolDown) {
-				var2.lastTimeUseThisSkill = System.currentTimeMillis();
-				Service.gI().sendPlayerAttack((MyVector) var1, (MyVector) (new MyVector()), (int) 1);
+				if (System.currentTimeMillis() - var2.lastTimeUseThisSkill >= (long) var2.coolDown) {
+					var2.lastTimeUseThisSkill = System.currentTimeMillis();
+					AutoKichYenPanel.waitAttackWindow();
+					Service.gI().sendPlayerAttack((MyVector) var1, (MyVector) (new MyVector()), (int) 1);
 				var2.l = true;
 				Char var10000 = Char.getMyChar();
 				var10000.cMP -= var2.manaUse;
@@ -566,8 +567,9 @@ public abstract class Auto {
 			int var11 = Math.abs(var0 - var10.x);
 			int var12 = Math.abs(var1 - var10.y);
 			var11 = var11 > var12 ? var11 : var12;
-			if (var4 <= var10.x && var10.x <= var5 && var6 <= var10.y && var10.y <= var7 && var10.status != 0 && var10.status != 1
-					&& (var8 == -1 || var11 < var8)) {
+				if (var4 <= var10.x && var10.x <= var5 && var6 <= var10.y && var10.y <= var7 && var10.status != 0 && var10.status != 1
+						&& AutoKichYenPanel.canAttack(var10)
+						&& (var8 == -1 || var11 < var8)) {
 				var2 = var10;
 				var8 = var11;
 			}
@@ -585,15 +587,17 @@ public abstract class Auto {
 			int var3 = ((Integer) NSOT_MOB.n.elementAt(NSOT_MOB.m)).intValue();
 			int var4 = ((Integer) NSOT_MOB.o.elementAt(NSOT_MOB.m)).intValue();
 			Mob var5 = b(var3, var4);
-			if (!this.a(var1, var3, var4) && !this.d(var3, var4) && var5 != null && !this.a(var1, var5.x, var5.y)) {
+				if (!this.a(var1, var3, var4) && !this.d(var3, var4) && var5 != null && AutoKichYenPanel.canAttack(var5) && !this.a(var1, var5.x, var5.y)) {
 				this.o = Char.getMyChar().cx;
 				this.p = Char.getMyChar().cy;
-				Char.b(var3, var4);
-				Char.getMyChar().mobFocus = var5;
-				Service.gI().sendAttackMobFast(var5.mobId);
-				a(100L);
-				return;
-			}
+					AutoKichYenPanel.waitMoveWindow();
+					Char.b(var3, var4);
+					Char.getMyChar().mobFocus = var5;
+					AutoKichYenPanel.waitAttackWindow();
+					Service.gI().sendAttackMobFast(var5.mobId);
+					a(AutoKichYenPanel.attackDelay(100L));
+					return;
+				}
 
 			if (++NSOT_MOB.m == NSOT_MOB.n.size()) {
 				NSOT_MOB.m = 0;
@@ -631,8 +635,9 @@ public abstract class Auto {
 				}
 
 				Mob var18;
-				if ((var18 = (Mob) var14.elementAt(var15)) != null && var18.hp > 0 && var18.status != 0 && var18.status != 1
-						&& a(var18, var8) && a(var18.levelBoss, var7)
+					if ((var18 = (Mob) var14.elementAt(var15)) != null && var18.hp > 0 && var18.status != 0 && var18.status != 1
+							&& AutoKichYenPanel.canAttack(var18)
+							&& a(var18, var8) && a(var18.levelBoss, var7)
 						&& (var6 == null || var6.charID == Char.getMyChar().charID
 								|| Res.a(var18.xFirst, var18.yFirst, var6.cx, var6.cy) <= 1000)
 						&& !var9.a(var7, var18.x, var18.y) && !var9.d(var18.x, var18.y)) {
@@ -659,8 +664,9 @@ public abstract class Auto {
 						int var23;
 						for (var23 = 0; var23 < var20.size(); ++var23) {
 							Mob var24;
-							if ((var24 = (Mob) var20.elementAt(var23)) != null && var24.hp > 0 && var24.status != 0
-									&& var24.status != 1 && a(var21, var17) && a(var21.levelBoss, var19)
+								if ((var24 = (Mob) var20.elementAt(var23)) != null && var24.hp > 0 && var24.status != 0
+										&& AutoKichYenPanel.canAttack(var24)
+										&& var24.status != 1 && a(var21, var17) && a(var21.levelBoss, var19)
 									&& Res.abs(var24.x - var21.x) <= 100 && Res.abs(var24.y - var21.y) <= 50) {
 								++var22;
 							}
@@ -756,6 +762,7 @@ public abstract class Auto {
 		for (int var1 = 0; var1 < GameScr.vMobAttack.size(); ++var1) {
 			if (((Mob) GameScr.vMobAttack.elementAt(var1)).status != 0 && ((Mob) GameScr.vMobAttack.elementAt(var1)).status != 1
 					&& ((Mob) GameScr.vMobAttack.elementAt(var1)).hp > 0
+					&& AutoKichYenPanel.canAttack((Mob) GameScr.vMobAttack.elementAt(var1))
 					&& ((Mob) GameScr.vMobAttack.elementAt(var1)).w != 3) {
 				var0 = (Mob) GameScr.vMobAttack.elementAt(var1);
 			}
@@ -806,14 +813,15 @@ public abstract class Auto {
 					this.z = System.currentTimeMillis();
 				}
 
-				if (var6 == null || var6.status == 0 || !a(var6, var1) || !a(var6.levelBoss, var2)
-						|| System.currentTimeMillis() - this.v > 5000L) {
+					if (var6 == null || var6.status == 0 || !AutoKichYenPanel.canAttack(var6) || !a(var6, var1) || !a(var6.levelBoss, var2)
+							|| System.currentTimeMillis() - this.v > AutoKichYenPanel.retargetDelay(5000L)) {
 					var6 = this.a(var3, var1, var2, var4, var5);
 				}
 
-				if (var6 == null && var7 && this.o > 0 && this.p > 0) {
-					Char.b(this.o, this.p);
-				}
+					if (var6 == null && var7 && this.o > 0 && this.p > 0) {
+						AutoKichYenPanel.waitMoveWindow();
+						Char.b(this.o, this.p);
+					}
 
 				Char var9;
 				int var16;
@@ -827,10 +835,11 @@ public abstract class Auto {
 									if ((var12 = (Party) GameScr.vParty.elementAt(var16)).charId != var3.charID && var12.c != null
 											&& var12.c.cHp <= 0) {
 										var9 = var12.c;
-										if (Math.abs(var3.cx - var9.cx) > 50 || Math.abs(var3.cy - var9.cy) > 50) {
-											a(500L);
-											Char.b(var9.cx, var9.cy);
-										}
+											if (Math.abs(var3.cx - var9.cx) > 50 || Math.abs(var3.cy - var9.cy) > 50) {
+												a(500L);
+												AutoKichYenPanel.waitMoveWindow();
+												Char.b(var9.cx, var9.cy);
+											}
 
 										a(1000L);
 										Service.gI().buffLive(var12.charId);
@@ -853,8 +862,9 @@ public abstract class Auto {
 
 					for (var16 = 0; var16 < n.size(); ++var16) {
 						Mob var19;
-						if ((var19 = (Mob) n.elementAt(var16)).hp > 0 && var19.status != 0 && var19.status != 1
-								&& !this.a(var2, var19.x, var19.y) && !this.d(var19.x, var19.y) && a(var19, var1)
+							if ((var19 = (Mob) n.elementAt(var16)).hp > 0 && var19.status != 0 && var19.status != 1
+									&& AutoKichYenPanel.canAttack(var19)
+									&& !this.a(var2, var19.x, var19.y) && !this.d(var19.x, var19.y) && a(var19, var1)
 								&& (var17 && var19.levelBoss == 1 || var5 && var19.levelBoss == 2)) {
 							var6 = var19;
 							this.c(var19);
@@ -938,26 +948,27 @@ public abstract class Auto {
 					if ((var18.template.type == 1 || var18.template.type == 3) && (Res.abs(var3.cx - var6.xFirst) > var18.dx + 30
 							|| Res.abs(var3.cy - var6.yFirst) > var18.dy + 30)) {
 						var3.mobFocus = null;
-						a(200L);
+							a(AutoKichYenPanel.attackDelay(200L));
 						return;
 					}
 
 					if (var18.template.type == 2) {
 						this.d(var18.template.id);
 						Service.gI().sendUseSkillMyBuff();
-						a(200L);
+						a(AutoKichYenPanel.attackDelay(200L));
 					} else {
 						var20 = var18.dx;
 						var16 = var18.dy;
 						t.removeAllElements();
 						u.removeAllElements();
-						if (var6 != null && System.currentTimeMillis() - var18.lastTimeUseThisSkill >= (long) var18.coolDown + 35L) {
+							if (var6 != null && System.currentTimeMillis() - var18.lastTimeUseThisSkill >= (long) var18.coolDown + AutoKichYenPanel.cooldownDelay(35L)) {
 							t.addElement(var6);
 
 							for (var21 = 0; var21 < GameScr.vMobAttack.size() && t.size() + u.size() < var18.maxFight; ++var21) {
 								Mob var22;
-								if ((var22 = (Mob) GameScr.vMobAttack.elementAt(var21)).status != 0 && var22.status != 1
-										&& !var22.equals(var6) && var6.xFirst - 100 <= var22.xFirst && var22.xFirst <= var6.xFirst + 100
+									if ((var22 = (Mob) GameScr.vMobAttack.elementAt(var21)).status != 0 && var22.status != 1
+											&& AutoKichYenPanel.canAttack(var22)
+											&& !var22.equals(var6) && var6.xFirst - 100 <= var22.xFirst && var22.xFirst <= var6.xFirst + 100
 										&& var6.yFirst - 50 <= var22.yFirst && var22.yFirst <= var6.yFirst + 50 && a(var22.levelBoss, var2)
 										&& (var1 == -1 || var22.templateId == var1)) {
 									t.addElement(var22);
@@ -974,14 +985,15 @@ public abstract class Auto {
 										&& var6.y - var16 <= var9.cy && var9.cy <= var6.y + var16) {
 									u.addElement(var9);
 								}
-							}
+								}
 
-							this.d(var18.template.id);
-							Service.gI().sendPlayerAttack((MyVector) t, (MyVector) u, (int) 1);
-						}
+								this.d(var18.template.id);
+								AutoKichYenPanel.waitAttackWindow();
+								Service.gI().sendPlayerAttack((MyVector) t, (MyVector) u, (int) 1);
+							}
 					}
 
-					if (System.currentTimeMillis() - var18.lastTimeUseThisSkill >= (long) var18.coolDown + 50L) {
+						if (System.currentTimeMillis() - var18.lastTimeUseThisSkill >= (long) var18.coolDown + AutoKichYenPanel.cooldownDelay(50L)) {
 						// fix speed
 						var18.lastTimeUseThisSkill = System.currentTimeMillis();
 						var18.l = true;
@@ -1033,11 +1045,12 @@ public abstract class Auto {
 					int var10 = var2.cy;
 					Mob var6 = var2.mobFocus;
 
-					label64: for (int var7 = 0; var7 < w.size(); ++var7) {
-						ItemMap var8 = (ItemMap) w.elementAt(var7);
-						a(100L);
-						Char.b(var8.xEnd, TileMap.d(var8.xEnd, var8.yEnd));
-						a(100L);
+						label64: for (int var7 = 0; var7 < w.size(); ++var7) {
+							ItemMap var8 = (ItemMap) w.elementAt(var7);
+							a(AutoKichYenPanel.attackDelay(100L));
+							AutoKichYenPanel.waitMoveWindow();
+							Char.b(var8.xEnd, TileMap.d(var8.xEnd, var8.yEnd));
+					a(AutoKichYenPanel.attackDelay(100L));
 						var2.itemFocus = var8;
 
 						for (int var9 = 0; var9 < 4 && var8.i != 2 && !var8.k; ++var9) {
@@ -1053,11 +1066,12 @@ public abstract class Auto {
 
 						var8.k = true;
 						var8.l = System.currentTimeMillis();
-					}
-
-					a(100L);
-					Char.b(var4, var10);
-					a(100L);
+						}
+	
+						a(AutoKichYenPanel.attackDelay(100L));
+						AutoKichYenPanel.waitMoveWindow();
+						Char.b(var4, var10);
+						a(AutoKichYenPanel.attackDelay(100L));
 					var2.mobFocus = var6;
 				}
 			}

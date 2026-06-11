@@ -83,6 +83,7 @@ public final class NSOT_MOB implements Runnable {
    public static boolean ad = mResources.d("nstglv") == 1;
    public static int autoDHDState = 0; // 0: IDLE, 1: LOGGING_IN, 2: DAILY, 3: TATHU, 4: LOGOFF
    public static int lastDailyTaskDay = -1;
+   public static int lastPartyTaThuDay = -1;
    private static long lastAutoPartyCheckTime;
    public static int hlct_hc = 0;
    public static boolean hlct;
@@ -146,59 +147,59 @@ public final class NSOT_MOB implements Runnable {
    public NSOT_MOB() {
       this.ref = mResources.ag;
       this.rou = Paint.load;
-      this.ref_ip_1 = nsotien_connect.ip_sv1;
+      this.ref_ip_1 = nsodatvct_connect.ip_sv1;
       this.rou_ip_1 = Paint.ip_sv1;
-      this.ref_ip_2 = nsotien_connect.ip_sv2;
+      this.ref_ip_2 = nsodatvct_connect.ip_sv2;
       this.rou_ip_2 = Paint.ip_sv2;
-      this.ref_ip_3 = nsotien_connect.ip_sv3;
+      this.ref_ip_3 = nsodatvct_connect.ip_sv3;
       this.rou_ip_3 = Paint.ip_sv3;
-      this.ref_ip_4 = nsotien_connect.ip_sv4;
+      this.ref_ip_4 = nsodatvct_connect.ip_sv4;
       this.rou_ip_4 = Paint.ip_sv4;
-      this.ref_ip_5 = nsotien_connect.ip_sv5;
+      this.ref_ip_5 = nsodatvct_connect.ip_sv5;
       this.rou_ip_5 = Paint.ip_sv5;
-      this.ref_ip_6 = nsotien_connect.ip_sv6;
+      this.ref_ip_6 = nsodatvct_connect.ip_sv6;
       this.rou_ip_6 = Paint.ip_sv6;
-      this.ref_ip_7 = nsotien_connect.ip_sv7;
+      this.ref_ip_7 = nsodatvct_connect.ip_sv7;
       this.rou_ip_7 = Paint.ip_sv7;
-      this.ref_ip_8 = nsotien_connect.ip_sv8;
+      this.ref_ip_8 = nsodatvct_connect.ip_sv8;
       this.rou_ip_8 = Paint.ip_sv8;
-      this.ref_ip_9 = nsotien_connect.ip_sv9;
+      this.ref_ip_9 = nsodatvct_connect.ip_sv9;
       this.rou_ip_9 = Paint.ip_sv9;
-      this.ref_ip_10 = nsotien_connect.ip_sv10;
+      this.ref_ip_10 = nsodatvct_connect.ip_sv10;
       this.rou_ip_10 = Paint.ip_sv10;
-      this.ref_ip_11 = nsotien_connect.ip_sv11;
+      this.ref_ip_11 = nsodatvct_connect.ip_sv11;
       this.rou_ip_11 = Paint.ip_sv11;
-      this.ref_ip_01 = nsotien_connect.ip_sv01;
+      this.ref_ip_01 = nsodatvct_connect.ip_sv01;
       this.rou_ip_01 = Paint.ip_sv01;
-      this.ref_ip_02 = nsotien_connect.ip_sv02;
+      this.ref_ip_02 = nsodatvct_connect.ip_sv02;
       this.rou_ip_02 = Paint.ip_sv02;
 
 
-      this.ref_name_1 = nsotien_connect.name_sv1;
+      this.ref_name_1 = nsodatvct_connect.name_sv1;
       this.rou_name_1 = Paint.name_sv1;
-      this.ref_name_2 = nsotien_connect.name_sv2;
+      this.ref_name_2 = nsodatvct_connect.name_sv2;
       this.rou_name_2 = Paint.name_sv2;
-      this.ref_name_3 = nsotien_connect.name_sv3;
+      this.ref_name_3 = nsodatvct_connect.name_sv3;
       this.rou_name_3 = Paint.name_sv3;
-      this.ref_name_4 = nsotien_connect.name_sv4;
+      this.ref_name_4 = nsodatvct_connect.name_sv4;
       this.rou_name_4 = Paint.name_sv4;
-      this.ref_name_5 = nsotien_connect.name_sv5;
+      this.ref_name_5 = nsodatvct_connect.name_sv5;
       this.rou_name_5 = Paint.name_sv5;
-      this.ref_name_6 = nsotien_connect.name_sv6;
+      this.ref_name_6 = nsodatvct_connect.name_sv6;
       this.rou_name_6 = Paint.name_sv6;
-      this.ref_name_7 = nsotien_connect.name_sv7;
+      this.ref_name_7 = nsodatvct_connect.name_sv7;
       this.rou_name_7 = Paint.name_sv7;
-      this.ref_name_8 = nsotien_connect.name_sv8;
+      this.ref_name_8 = nsodatvct_connect.name_sv8;
       this.rou_name_8 = Paint.name_sv8;
-      this.ref_name_9 = nsotien_connect.name_sv9;
+      this.ref_name_9 = nsodatvct_connect.name_sv9;
       this.rou_name_9 = Paint.name_sv9;
-      this.ref_name_10 = nsotien_connect.name_sv10;
+      this.ref_name_10 = nsodatvct_connect.name_sv10;
       this.rou_name_10 = Paint.name_sv10;
-      this.ref_name_11 = nsotien_connect.name_sv11;
+      this.ref_name_11 = nsodatvct_connect.name_sv11;
       this.rou_name_11 = Paint.name_sv11;
-      this.ref_name_01 = nsotien_connect.name_sv01;
+      this.ref_name_01 = nsodatvct_connect.name_sv01;
       this.rou_name_01 = Paint.name_sv01;
-      this.ref_name_02 = nsotien_connect.name_sv02;
+      this.ref_name_02 = nsodatvct_connect.name_sv02;
       this.rou_name_02 = Paint.name_sv02;
    }
 
@@ -325,8 +326,8 @@ public final class NSOT_MOB implements Runnable {
          bh = System.currentTimeMillis();
          av = true;
          (aw = new Thread(this)).start();
-         ChatManager.gI().addChat(mResources.ot[0], "Web nsotiensv4.com", "Shop bán nick, các loại phiên bản hack và mod phiên bản uy tín vận hành bởi Youtube NsoTien Tv, vui lòng chỉ tải tại web tránh keylog hoặc inbox zalo 0378916676");
-         Info.canMergeString("Web nsotiensv4.com : Shop bán nick, các loại phiên bản hack và mod phiên bản uy tín vận hành bởi Youtube NsoTien Tv, vui lòng chỉ tải tại web tránh keylog hoặc inbox zalo 0378916676", 150, mFont.tahoma_7b_yellow);
+         ChatManager.gI().addChat(mResources.ot[0], "datvct", "Tools code by datvct");
+         Info.canMergeString("Tools code by datvct", 150, mFont.tahoma_7b_yellow);
       }
 
    }
@@ -542,8 +543,8 @@ public final class NSOT_MOB implements Runnable {
                   Effect var10;
                   
                   if (AutoDailyPanel.isAutoDHDOn) {
-                     if (var5 == AutoDailyPanel.autoDailyHour && var6 >= AutoDailyPanel.autoDailyMinute && var4.get(Calendar.DAY_OF_YEAR) != lastDailyTaskDay) {
-                        lastDailyTaskDay = var4.get(Calendar.DAY_OF_YEAR);
+                     if (var5 == AutoDailyPanel.autoDailyHour && var6 >= AutoDailyPanel.autoDailyMinute && var4.get(Calendar.DATE) != lastDailyTaskDay) {
+                        lastDailyTaskDay = var4.get(Calendar.DATE);
                         autoDHDState = 1;
                      }
 
@@ -570,8 +571,8 @@ public final class NSOT_MOB implements Runnable {
                            }
                         }
                      }
-                  } else if (AutoDailyPanel.isAutoDailyOn && var5 == AutoDailyPanel.autoDailyHour && var6 >= AutoDailyPanel.autoDailyMinute && var4.get(Calendar.DAY_OF_YEAR) != lastDailyTaskDay) {
-                     lastDailyTaskDay = var4.get(Calendar.DAY_OF_YEAR);
+                  } else if (AutoDailyPanel.isAutoDailyOn && var5 == AutoDailyPanel.autoDailyHour && var6 >= AutoDailyPanel.autoDailyMinute && var4.get(Calendar.DATE) != lastDailyTaskDay) {
+                     lastDailyTaskDay = var4.get(Calendar.DATE);
                      if (TileMap.mapID == 1 || TileMap.mapID == 27 || TileMap.mapID == 72) {
                         GameScr.addChatPopup("Đến giờ Auto Nhiệm Vụ Hằng Ngày");
                         Class_cl.ac();
@@ -582,6 +583,16 @@ public final class NSOT_MOB implements Runnable {
                      } else {
                         GameScr.addChatPopup("Đến giờ Auto NV nhưng bạn không ở trường");
                      }
+                  }
+
+                  if (AutoTaThuPanel.isPartyTaThuOn && !(b instanceof TaskTaThuAuto) && AutoTaThuPanel.hasGatherPoint() && AutoTaThuPanel.isStartTime(var5, var6) && var4.get(Calendar.DATE) != lastPartyTaThuDay) {
+                     lastPartyTaThuDay = var4.get(Calendar.DATE);
+                     GameScr.addChatPopup("Đến giờ Auto Tà Thú nhóm");
+                     Class_cl.ac();
+                     ay = new TaskTaThuAuto();
+                     TaskTaThuAuto.partyQuestCount = 0;
+                     ay.g();
+                     a((Auto)ay);
                   }
 
                   if (System.currentTimeMillis() - lastAutoPartyCheckTime > 10000L) {
@@ -624,6 +635,8 @@ public final class NSOT_MOB implements Runnable {
                         }
                      }
                   }
+
+                  AutoLocDoPanel.processBag();
 
                   if (b != null) {
                      if (ah > 0L) {

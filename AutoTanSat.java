@@ -12,7 +12,7 @@ public final class AutoTanSat extends Auto {
 		p = false;
 		q = false;
 		r = 0L;
-		t = "nsotiensv4.com";
+		t = "datvct";
 	}
 
 	public final void a(int var1, int var2, int var3) {

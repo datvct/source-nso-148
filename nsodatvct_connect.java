@@ -1,4 +1,4 @@
-public class nsotien_connect {
+public class nsodatvct_connect {
    public static String ip_sv1 = new String(new char[]{'n','j','1','.','t','e','a','m','o','b','i','.','c','o','m'});
    public static String ip_sv2 = new String(new char[]{'n','j','2','.','t','e','a','m','o','b','i','.','c','o','m'});
    public static String ip_sv3 = new String(new char[]{'n','j','2','.','t','e','a','m','o','b','i','.','c','o','m'});

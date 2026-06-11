@@ -1270,6 +1270,7 @@ public final class GameScr extends mScreen implements IChatable, IActionListener
             var0.addElement(new Command1("Auto Tà Thú", 1100075));
         }
 
+        var0.addElement(new Command1("Menu datvct", 1100091));
         var0.addElement(new Command1("NPC", 1100071));
         var0.addElement(new Command1("Item Nhặt", 1100076));
         var0.addElement(new Command1(NSOT_MOB.k ? "Hút VP" : "Nhặt Xa", 1100080));
@@ -1281,6 +1282,16 @@ public final class GameScr extends mScreen implements IChatable, IActionListener
         var0.addElement(new Command1("SPGame: " + NSOT_MOB.t, 1100087));
         var0.addElement(new Command1("TĐ next map: " + NSOT_MOB.u, 11000877));
         var0.addElement(new Command1(mResources.oa[7], 1100068));
+        GameCanvas.menu.startAt(var0);
+    }
+
+    private static void datvctMenu() {
+        MyVector var0 = new MyVector();
+        var0.addElement(new Command1("Auto NVHN", 1100092));
+        var0.addElement(new Command1("Auto Party", 1100093));
+        var0.addElement(new Command1("Auto TT", 1100094));
+        var0.addElement(new Command1("Kích yên", 1100095));
+        var0.addElement(new Command1("Loc do", 1100096));
         GameCanvas.menu.startAt(var0);
     }
 
@@ -1301,7 +1312,8 @@ public final class GameScr extends mScreen implements IChatable, IActionListener
         }
 
         var0.addElement(new Command1(mResources.iv[1], 110001));
-        var0.addElement(new Command1("AUTO NST", 110021));
+        var0.addElement(new Command1("Menu auto", 110021));
+        var0.addElement(new Command1("Menu datvct", 1100091));
         var0.addElement(new Command1(mResources.iv[3], 110003));
         var0.addElement(new Command1(mResources.iv[6], 110006));
         var0.addElement(new Command1(mResources.iv[14], 110014));
@@ -5166,7 +5178,7 @@ public final class GameScr extends mScreen implements IChatable, IActionListener
             var1 += 30;
             a(var0, mResources.ri[33], Char.eh, "", nt, var1);
             var1 += 30;
-            a(var0, "Tải tại nsotiensv4.com", true, "", nt, var1);
+            a(var0, "Tools By Datvct", true, "", nt, var1);
             if (indexTitle == 1 && indexRow >= 0 && !GameCanvas.isTouch) {
                 SmallImage.drawSmallImageNew(var0, 942, nt - 8, nu + 2 + indexRow * 30, 0, StaticObj.TOP_LEFT);
             }
@@ -14967,6 +14979,24 @@ public final class GameScr extends mScreen implements IChatable, IActionListener
                 NSOT_MOB.d(GameCanvas.inputDlg.tfInput.e());
                 GameCanvas.n();
                 return;
+            case 1100091:
+                datvctMenu();
+                return;
+            case 1100092:
+                javax.microedition.lcdui.Display.getDisplay(GameMidlet.instance).setCurrent(new AutoDailyPanel());
+                return;
+            case 1100093:
+                javax.microedition.lcdui.Display.getDisplay(GameMidlet.instance).setCurrent(new AutoPartyPanel());
+                return;
+            case 1100094:
+                javax.microedition.lcdui.Display.getDisplay(GameMidlet.instance).setCurrent(new AutoTaThuPanel());
+                return;
+            case 1100095:
+                javax.microedition.lcdui.Display.getDisplay(GameMidlet.instance).setCurrent(new AutoKichYenPanel());
+                return;
+            case 1100096:
+                javax.microedition.lcdui.Display.getDisplay(GameMidlet.instance).setCurrent(new AutoLocDoPanel());
+                return;
             case 1100181:
                 GameCanvas.a(mResources.k, new Command1(mResources.sq, 1100182), new Command1(mResources.ce, GameCanvas.instance, 8882, (Object) null));
                 return;
@@ -17094,8 +17124,9 @@ public final class GameScr extends mScreen implements IChatable, IActionListener
             }
 
             for (var0 = 0; var0 < vMobAttack.size(); ++var0) {
-                if (var0 != ov && ow[var0] < fc && ox[var0] < fc && Char.getMyChar().mobFocus == null && (var1 = (Mob) vMobAttack.elementAt(var0)).status != 0 && var1.status != 1 && var1.levelBoss != 3) {
+                if (var0 != ov && ow[var0] < fc && ox[var0] < fc && Char.getMyChar().mobFocus == null && (var1 = (Mob) vMobAttack.elementAt(var0)).status != 0 && var1.status != 1 && var1.levelBoss != 3 && AutoKichYenPanel.canAttack(var1)) {
                     ServerEffect.addServerEffect(141, Char.getMyChar().cx, Char.getMyChar().cy, 2);
+                    AutoKichYenPanel.waitMoveWindow();
                     Char.getMyChar().cx = var1.xFirst;
                     Char.getMyChar().cy = var1.yFirst;
                     Char.getMyChar().statusMe = 4;
@@ -17103,6 +17134,7 @@ public final class GameScr extends mScreen implements IChatable, IActionListener
                     ServerEffect.addServerEffect(141, Char.getMyChar().cx, Char.getMyChar().cy, 2);
                     Char.getMyChar().cxSend = var1.xFirst;
                     Char.getMyChar().cySend = var1.yFirst;
+                    AutoKichYenPanel.waitAttackWindow();
                     Service.gI().sendAttackMobFast(var1.mobId);
                     ov = var0;
                     ou = System.currentTimeMillis();
