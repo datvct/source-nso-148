@@ -77,6 +77,11 @@ public final class TaskAuto extends Auto {
             return;
          }
 
+         if (this.r == null || this.r.count >= this.r.maxCount) {
+            this.a(getSchoolMap(), -1, -1, -1);
+            return;
+         }
+
          if (this.r != null && TileMap.mapID == this.r.mapId) {
             if (this.r.count >= this.r.maxCount) {
                Auto.j();
@@ -90,6 +95,8 @@ public final class TaskAuto extends Auto {
                o = false;
                return;
             }
+         } else if (this.r != null) {
+            this.a(this.r.mapId, -1, -1, -1);
          }
       } else {
          GameScr.addChatPopup("Ho\u00e0n th\u00e0nh!");
@@ -110,6 +117,15 @@ public final class TaskAuto extends Auto {
 
    public final String toString() {
       return "Auto Nhi\u1ec7m v\u1ee5 h\u1eb1ng ng\u00e0y: " + q + "/20";
+   }
+
+   private static int getSchoolMap() {
+      int var0 = Char.getMyChar().e();
+      if (var0 == 2) {
+         return 27;
+      } else {
+         return var0 == 3 ? 72 : 1;
+      }
    }
 
    public static void c() {

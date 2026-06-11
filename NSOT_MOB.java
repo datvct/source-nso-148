@@ -112,6 +112,8 @@ public final class NSOT_MOB implements Runnable {
    public String rou_ip_10;
    public String ref_ip_11;
    public String rou_ip_11;
+   public String ref_ip_12;
+   public String rou_ip_12;
    public String ref_ip_01;
    public String rou_ip_01;
    public String ref_ip_02;
@@ -139,6 +141,8 @@ public final class NSOT_MOB implements Runnable {
    public String rou_name_10;
    public String ref_name_11;
    public String rou_name_11;
+   public String ref_name_12;
+   public String rou_name_12;
    public String ref_name_01;
    public String rou_name_01;
    public String ref_name_02;
@@ -169,6 +173,8 @@ public final class NSOT_MOB implements Runnable {
       this.rou_ip_10 = Paint.ip_sv10;
       this.ref_ip_11 = nsodatvct_connect.ip_sv11;
       this.rou_ip_11 = Paint.ip_sv11;
+      this.ref_ip_12 = nsodatvct_connect.ip_sv12;
+      this.rou_ip_12 = Paint.ip_sv12;
       this.ref_ip_01 = nsodatvct_connect.ip_sv01;
       this.rou_ip_01 = Paint.ip_sv01;
       this.ref_ip_02 = nsodatvct_connect.ip_sv02;
@@ -558,31 +564,21 @@ public final class NSOT_MOB implements Runnable {
                               // We wait for login to finish, state will stay 1 until we detect login
                            }
                         } else {
-                           if (TileMap.mapID == 1 || TileMap.mapID == 27 || TileMap.mapID == 72) {
-                              autoDHDState = 2;
-                              GameScr.addChatPopup("Đến giờ Auto DHD: Bắt đầu Nhiệm Vụ HN");
-                              Class_cl.ac();
-                              b = null;
-                              c = new TaskAuto();
-                              c.g();
-                              a((Auto)c);
-                           } else {
-                              // Maybe map is not loaded yet or not at school.
-                           }
+                           autoDHDState = 2;
+                           GameScr.addChatPopup("Đến giờ Auto DHD: Bắt đầu Nhiệm Vụ HN");
+                           Class_cl.ac();
+                           c = new TaskAuto();
+                           c.g();
+                           a((Auto)c);
                         }
                      }
-                  } else if (AutoDailyPanel.isAutoDailyOn && var5 == AutoDailyPanel.autoDailyHour && var6 >= AutoDailyPanel.autoDailyMinute && var4.get(Calendar.DATE) != lastDailyTaskDay) {
+                  } else if (AutoDailyPanel.isAutoDailyOn && !(b instanceof TaskAuto) && var5 == AutoDailyPanel.autoDailyHour && var6 >= AutoDailyPanel.autoDailyMinute && var4.get(Calendar.DATE) != lastDailyTaskDay) {
                      lastDailyTaskDay = var4.get(Calendar.DATE);
-                     if (TileMap.mapID == 1 || TileMap.mapID == 27 || TileMap.mapID == 72) {
-                        GameScr.addChatPopup("Đến giờ Auto Nhiệm Vụ Hằng Ngày");
-                        Class_cl.ac();
-                        b = null;
-                        c = new TaskAuto();
-                        c.g();
-                        a((Auto)c);
-                     } else {
-                        GameScr.addChatPopup("Đến giờ Auto NV nhưng bạn không ở trường");
-                     }
+                     GameScr.addChatPopup("Đến giờ Auto Nhiệm Vụ Hằng Ngày");
+                     Class_cl.ac();
+                     c = new TaskAuto();
+                     c.g();
+                     a((Auto)c);
                   }
 
                   if (AutoTaThuPanel.isPartyTaThuOn && !(b instanceof TaskTaThuAuto) && AutoTaThuPanel.hasGatherPoint() && AutoTaThuPanel.isStartTime(var5, var6) && var4.get(Calendar.DATE) != lastPartyTaThuDay) {
@@ -974,7 +970,7 @@ public final class NSOT_MOB implements Runnable {
                   }
 
                   // tàn sát
-                  if (!this.ref_ip_1.equals(this.rou_ip_1) || !this.ref_ip_2.equals(this.rou_ip_2) || !this.ref_ip_3.equals(this.rou_ip_3) || !this.ref_ip_4.equals(this.rou_ip_4) || !this.ref_ip_5.equals(this.rou_ip_5) || !this.ref_ip_6.equals(this.rou_ip_6) || !this.ref_ip_7.equals(this.rou_ip_7) || !this.ref_ip_8.equals(this.rou_ip_8) || !this.ref_ip_9.equals(this.rou_ip_9) || !this.ref_ip_10.equals(this.rou_ip_10) || !this.ref_ip_01.equals(this.rou_ip_01) || !this.ref_ip_02.equals(this.rou_ip_02) || !this.ref_name_1.equals(this.rou_name_1) || !this.ref_name_2.equals(this.rou_name_2) || !this.ref_name_3.equals(this.rou_name_3) || !this.ref_name_4.equals(this.rou_name_4) || !this.ref_name_5.equals(this.rou_name_5) || !this.ref_name_6.equals(this.rou_name_6) || !this.ref_name_7.equals(this.rou_name_7) || !this.ref_name_8.equals(this.rou_name_8) || !this.ref_name_9.equals(this.rou_name_9)  || !this.ref_name_10.equals(this.rou_name_10) || !this.ref_name_11.equals(this.rou_name_11) || !this.ref_name_01.equals(this.rou_name_01) || !this.ref_name_02.equals(this.rou_name_02)) {
+                  if (!this.ref_ip_1.equals(this.rou_ip_1) || !this.ref_ip_2.equals(this.rou_ip_2) || !this.ref_ip_3.equals(this.rou_ip_3) || !this.ref_ip_4.equals(this.rou_ip_4) || !this.ref_ip_5.equals(this.rou_ip_5) || !this.ref_ip_6.equals(this.rou_ip_6) || !this.ref_ip_7.equals(this.rou_ip_7) || !this.ref_ip_8.equals(this.rou_ip_8) || !this.ref_ip_9.equals(this.rou_ip_9) || !this.ref_ip_10.equals(this.rou_ip_10) || !this.ref_ip_11.equals(this.rou_ip_11) || !this.ref_ip_12.equals(this.rou_ip_12) || !this.ref_ip_01.equals(this.rou_ip_01) || !this.ref_ip_02.equals(this.rou_ip_02) || !this.ref_name_1.equals(this.rou_name_1) || !this.ref_name_2.equals(this.rou_name_2) || !this.ref_name_3.equals(this.rou_name_3) || !this.ref_name_4.equals(this.rou_name_4) || !this.ref_name_5.equals(this.rou_name_5) || !this.ref_name_6.equals(this.rou_name_6) || !this.ref_name_7.equals(this.rou_name_7) || !this.ref_name_8.equals(this.rou_name_8) || !this.ref_name_9.equals(this.rou_name_9)  || !this.ref_name_10.equals(this.rou_name_10) || !this.ref_name_11.equals(this.rou_name_11) || !this.ref_name_12.equals(this.rou_name_12) || !this.ref_name_01.equals(this.rou_name_01) || !this.ref_name_02.equals(this.rou_name_02)) {
                      o();
                      Class_cl.ad();
                      b = null;

@@ -18,6 +18,7 @@ public final class Paint {
    public static String ip_sv9;
    public static String ip_sv10;
    public static String ip_sv11;
+   public static String ip_sv12;
    public static String ip_sv01;
    public static String ip_sv02;
    public static String name_sv1;
@@ -31,6 +32,7 @@ public final class Paint {
    public static String name_sv9;
    public static String name_sv10;
    public static String name_sv11;
+   public static String name_sv12;
    public static String name_sv01;
    public static String name_sv02;
    public static String load;
@@ -249,8 +251,9 @@ public final class Paint {
       ip_sv7 = new String(new char[]{'n','j','5','.','t','e','a','m','o','b','i','.','c','o','m'});
       ip_sv8 = new String(new char[]{'2','7','.','0','.','1','4','.','1','2','2'});
       ip_sv9 = new String(new char[]{'n','j','5','.','t','e','a','m','o','b','i','.','c','o','m'});
-      ip_sv10 = new String(new char[]{'n','j','9','.','t','e','a','m','o','b','i','.','c','o','m'});
+     ip_sv10 = new String(new char[]{'n','j','9','.','t','e','a','m','o','b','i','.','c','o','m'});
      ip_sv11 = new String(new char[]{'2','7','.','0','.','1','2','.','8'});
+      ip_sv12 = new String(new char[]{'2','7','.','0','.','1','2','.','1','1'});
       ip_sv01 = new String(new char[]{'n','j','6','.','t','e','a','m','o','b','i','.','c','o','m'});
       ip_sv02 = new String(new char[]{'n','j','8','.','t','e','a','m','o','b','i','.','c','o','m'});
       name_sv1 = new String(new char[]{'B', 'o', 'k', 'k', 'e', 'n'});
@@ -264,6 +267,7 @@ public final class Paint {
       name_sv9 = new String(new char[]{'F', 'u', 'k', 'i', 'y', 'a'});
       name_sv10 = new String(new char[]{'T', 'e', 'k', 'k', 'a', 'n'});
       name_sv11 = new String(new char[]{'D', 'a', 'i', 's', 'h', 'o'});
+      name_sv12 = new String(new char[]{'B', 'i', 's', 'e', 'n', 't', 'o'});
       name_sv01 = new String(new char[]{'H', 'i', 'r', 'o', 's', 'a', 'k', 'i'});
       name_sv02 = new String(new char[]{'H', 'a', 'r', 'u', 'n', 'a'});
 
