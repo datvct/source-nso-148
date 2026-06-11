@@ -379,7 +379,53 @@ public final class NSOT_MOB implements Runnable {
 
    public static void g() {
       Class_cl.ac();
+      autoDHDState = 0;
+      lastDailyTaskDay = -1;
+      lastPartyTaThuDay = -1;
+      AutoDailyPanel.isAutoDailyOn = false;
+      AutoDailyPanel.isAutoDHDOn = false;
+      mResources.a("auto_daily_on", -1);
+      mResources.a("auto_dhd_on", -1);
+      AutoTaThuPanel.isPartyTaThuOn = false;
+      TaskTaThuAuto.partyQuestCount = 0;
+      TaskTaThuAuto.p = false;
+      TaskTaThuAuto.q = 0L;
+      mResources.a("auto_party_tathu_on", -1);
+      AutoPartyPanel.isAutoPartyOn = false;
+      AutoPartyPanel.isAutoFriendOn = false;
+      mResources.a("auto_party_on", -1);
+      mResources.a("auto_friend_on", -1);
+      AutoKichYenPanel.isAutoKichYenOn = false;
+      AutoKichYenPanel.isNormalOn = false;
+      AutoKichYenPanel.isEliteOn = false;
+      AutoKichYenPanel.isChiefOn = false;
+      AutoKichYenPanel.isFastOptimizeOn = false;
+      mResources.a("aky_on", -1);
+      mResources.a("aky_normal_on", -1);
+      mResources.a("aky_elite_on", -1);
+      mResources.a("aky_chief_on", -1);
+      mResources.a("aky_fast_on", -1);
+      AutoNhayPanel.a = false;
+      mResources.a("nhaynhay", -1);
+      k = false;
+      l = false;
+      p = false;
+      s = false;
+      ad = false;
+      au = false;
+      as = false;
+      mResources.a("nstglv", -1);
+      mResources.a("nstconnect", -1);
+      mResources.a("isShow", -1);
+      PK_AM_PANEL.isShow = false;
+      AutoDapDoPanel.isOn = false;
+      AutoDapDoPanel.save();
+      AutoLocDoPanel.isSellAtVillageOn = false;
+      AutoLocDoPanel.save();
+      Class_cl.m();
       b = null;
+      GameCanvas.n();
+      GameScr.addChatPopup("[datvct] Đã tắt toàn bộ auto");
    }
 
    private static void q() {

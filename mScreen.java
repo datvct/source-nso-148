@@ -152,8 +152,8 @@ public class mScreen {
 	         long var8 = var3 * 3600L / (long)var5;
 	         float var10 = (float)(var3 * 10000L / GameScr.exps[Char.getMyChar().clevel]) / 100.0F;
 	         float var11 = (float)(var8 * 10000L / GameScr.exps[Char.getMyChar().clevel]) / 100.0F;
-	         mFont.tahoma_7_blue1.a(var1, "Up yên: " + var2 + " trong " + NinjaUtil.getTime(var5) + " | 1h: " + var6, 5, 20, 0, mFont.tahoma_7_grey);
-	         mFont.tahoma_7_blue1.a(var1, "Up exp: " + var10 + "% trong " + NinjaUtil.getTime(var5) + " | 1h: " + var11 + "%", 5, 32, 0, mFont.tahoma_7_grey);
+	         mFont.tahoma_7_blue1.a(var1, "Up yên: " + var2 + " trong " + NinjaUtil.getTime(var5) + " | 1h: " + var6, 5, 145, 0, mFont.tahoma_7_grey);
+	         mFont.tahoma_7_blue1.a(var1, "Up exp: " + var10 + "% trong " + NinjaUtil.getTime(var5) + " | 1h: " + var11 + "%", 5, 157, 0, mFont.tahoma_7_grey);
 	      }
 
 	      if(PK_AM_PANEL.isShow) {

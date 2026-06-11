@@ -22,9 +22,11 @@ public final class AutoLocDoPanel extends Form implements CommandListener {
    public static String keepRules = getString("ald_keep_rules");
    private static long lastCleanTime;
    private static long lastFullBagReturnTime;
+   private static boolean isPanelOpen;
 
    public AutoLocDoPanel() {
       super("Loc do");
+      isPanelOpen = true;
       this.append(this.modeGroup = new ChoiceGroup("Che do", ChoiceGroup.EXCLUSIVE, new String[]{"Ban tai truong/lang", "Khong loc"}, (Image[])null));
       this.modeGroup.setSelectedIndex(isSellAtVillageOn ? 0 : 1, true);
       this.append(this.minSellField = new TextField("Ban neu gia yen >", String.valueOf(minSellYen), 6, TextField.NUMERIC));
@@ -48,16 +50,18 @@ public final class AutoLocDoPanel extends Form implements CommandListener {
             save();
             GameCanvas.a("Luu cai dat Loc do thanh cong");
          } catch (Exception var4) {
+            isPanelOpen = false;
             Display.getDisplay(GameMidlet.instance).setCurrent(new Alert("Loi", "Co loi xay ra. Hay xem lai cai dat loc do!", (Image)null, AlertType.ERROR));
             return;
          }
       }
 
+      isPanelOpen = false;
       Display.getDisplay(GameMidlet.instance).setCurrent(MotherCanvas.gI());
    }
 
    public static void processBag() {
-      if (!isSellAtVillageOn || Char.getMyChar() == null || Char.getMyChar().arrItemBag == null) {
+      if (isPanelOpen || !isSellAtVillageOn || Char.getMyChar() == null || Char.getMyChar().arrItemBag == null) {
          return;
       }
 
@@ -262,7 +266,7 @@ public final class AutoLocDoPanel extends Form implements CommandListener {
       }
    }
 
-   private static void save() {
+   public static void save() {
       mResources.a("ald_sell_village", isSellAtVillageOn ? 1 : -1);
       mResources.a("ald_min_sell", String.valueOf(minSellYen));
       mResources.a("ald_keep_rules", keepRules == null ? "" : keepRules);

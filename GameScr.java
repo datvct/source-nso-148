@@ -1270,7 +1270,12 @@ public final class GameScr extends mScreen implements IChatable, IActionListener
             var0.addElement(new Command1("Auto Tà Thú", 1100075));
         }
 
-        var0.addElement(new Command1("Menu datvct", 1100091));
+        var0.addElement(new Command1("Auto NVHN", 1100092));
+        var0.addElement(new Command1("Auto Party", 1100093));
+        var0.addElement(new Command1("Auto TT", 1100094));
+        var0.addElement(new Command1("Kích yên", 1100095));
+        var0.addElement(new Command1("Lọc đồ", 1100096));
+        var0.addElement(new Command1("Đập đồ", 1100097));
         var0.addElement(new Command1("NPC", 1100071));
         var0.addElement(new Command1("Item Nhặt", 1100076));
         var0.addElement(new Command1(NSOT_MOB.k ? "Hút VP" : "Nhặt Xa", 1100080));
@@ -1314,7 +1319,6 @@ public final class GameScr extends mScreen implements IChatable, IActionListener
 
         var0.addElement(new Command1(mResources.iv[1], 110001));
         var0.addElement(new Command1("Menu auto", 110021));
-        var0.addElement(new Command1("Menu datvct", 1100091));
         var0.addElement(new Command1(mResources.iv[3], 110003));
         var0.addElement(new Command1(mResources.iv[6], 110006));
         var0.addElement(new Command1(mResources.iv[14], 110014));

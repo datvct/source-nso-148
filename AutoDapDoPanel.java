@@ -211,7 +211,7 @@ public final class AutoDapDoPanel extends Form implements CommandListener {
       }
    }
 
-   private static void save() {
+   public static void save() {
       mResources.a("add_on", isOn ? 1 : -1);
       mResources.a("add_use_focus", useFocusedItem ? 1 : -1);
       mResources.a("add_use_bua", useBuaItem ? 1 : -1);
